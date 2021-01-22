@@ -1,0 +1,41 @@
+---
+- name: Check if gopass is already installed
+  stat:
+    path: "{{ gopass_bin }}"
+  register: __gopass_bin
+
+- block:
+  - name: Download gopass archive
+    get_url:
+      url: "{{ gopass_download_url }}"
+      dest: /tmp/gopass.tar.gz
+      mode: 0655
+      checksum: "{{ gopass_checksum }}"
+
+  - name: Ensure target folder exists
+    file:
+      path: "{{ gopass_path }}"
+      state: directory
+    become: true
+
+  - name: Extract archive
+    unarchive:
+      src: /tmp/gopass.tar.gz
+      dest: "{{ gopass_path }}"
+      remote_src: yes
+    become: true
+
+  - name: Remove gopass archive
+    file:
+      path: /tmp/gopass.tar.gz
+      state: absent
+
+  - name: Create gopass symlink
+    file:
+      src: "{{ gopass_path }}/gopass"
+      dest: "{{ gopass_bin }}"
+      owner: root
+      group: root
+      state: link
+    become: true
+  when: not __gopass_bin.stat.exists
