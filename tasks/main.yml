@@ -5,6 +5,12 @@
   register: __gopass_bin
 
 - block:
+  - name: Install GnuPG
+    package:
+      name: gnupg2
+      state: present
+    become: true
+
   - name: Download gopass archive
     get_url:
       url: "{{ gopass_download_url }}"
@@ -16,6 +22,7 @@
     file:
       path: "{{ gopass_path }}"
       state: directory
+      mode: 0755
     become: true
 
   - name: Extract archive
@@ -34,6 +41,22 @@
     file:
       src: "{{ gopass_path }}/gopass"
       dest: "{{ gopass_bin }}"
+      owner: root
+      group: root
+      state: link
+    become: true
+
+  - name: Ensure summon lib folder exists
+    file:
+      path: "{{ summon_lib_path }}"
+      state: directory
+      mode: 0755
+    become: true
+
+  - name: Create summon provider symlink
+    file:
+      src: "{{ gopass_path }}/gopass-summon-provider"
+      dest: "{{ summon_lib_path }}/gopass-summon-provider"
       owner: root
       group: root
       state: link

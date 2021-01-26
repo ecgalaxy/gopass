@@ -4,3 +4,4 @@ gopass_download_url: "https://github.com/gopasspw/gopass/releases/download/v{{ g
 gopass_checksum: "sha256:34d69ae48f45cbb4c0f87c28d506ad68b4085795d25f339c52a8d4731a1a0760"
 gopass_path: "/usr/local/lib/gopass-{{ gopass_version }}"
 gopass_bin: "/usr/local/bin/gopass"
+summon_lib_path: "/usr/local/lib/summon"
