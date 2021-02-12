@@ -1,8 +1,8 @@
 ---
 - name: Check if gopass is already installed
   stat:
-    path: "{{ gopass_bin }}"
-  register: __gopass_bin
+    path: "{{ gopass_path }}"
+  register: __gopass_path
 
 - block:
   - name: Install GnuPG
@@ -61,4 +61,4 @@
       group: root
       state: link
     become: true
-  when: not __gopass_bin.stat.exists
+  when: not __gopass_path.stat.exists
