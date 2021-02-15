@@ -18,23 +18,48 @@
       mode: 0655
       checksum: "{{ gopass_checksum }}"
 
+  - name: Download gopass summon archive
+    get_url:
+      url: "{{ gopass_summon_download_url }}"
+      dest: /tmp/gopass-summon.tar.gz
+      mode: 0655
+      checksum: "{{ gopass_summon_checksum }}"
+
   - name: Ensure target folder exists
     file:
       path: "{{ gopass_path }}"
       state: directory
+      owner: root
+      group: root
       mode: 0755
     become: true
 
-  - name: Extract archive
+  - name: Extract gopass archive
     unarchive:
       src: /tmp/gopass.tar.gz
       dest: "{{ gopass_path }}"
+      owner: root
+      group: root
+      remote_src: yes
+    become: true
+
+  - name: Extract gopass summon archive
+    unarchive:
+      src: /tmp/gopass-summon.tar.gz
+      dest: "{{ gopass_path }}"
+      owner: root
+      group: root
       remote_src: yes
     become: true
 
   - name: Remove gopass archive
     file:
       path: /tmp/gopass.tar.gz
+      state: absent
+
+  - name: Remove gopass summon archive
+    file:
+      path: /tmp/gopass-summon.tar.gz
       state: absent
 
   - name: Create gopass symlink
