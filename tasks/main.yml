@@ -1,7 +1,7 @@
 ---
 - name: Check if gopass is already installed
   stat:
-    path: "{{ gopass_path }}"
+    path: "{{ gopass_path }}/gopass"
   register: __gopass_path
 
 - block:
