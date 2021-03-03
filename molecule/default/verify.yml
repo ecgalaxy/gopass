@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  vars_files:
+    - ../../defaults/main.yml
+  gather_facts: false
+  tasks:
+  - name: Check gopass version
+    command: gopass --version
+    register: output
+  - name: Assert that gopass is installed
+    assert:
+      that:
+      - "'gopass {{ gopass_version }}' in output.stdout"
