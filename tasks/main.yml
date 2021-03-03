@@ -1,41 +1,89 @@
 ---
-- name: Check if gopass is already installed
-  stat:
-    path: "{{ gopass_bin }}"
-  register: __gopass_bin
+- name: Install GnuPG
+  package:
+    name: gnupg2
+    state: present
+  become: true
 
-- block:
-  - name: Download gopass archive
-    get_url:
-      url: "{{ gopass_download_url }}"
-      dest: /tmp/gopass.tar.gz
-      mode: 0655
-      checksum: "{{ gopass_checksum }}"
+- name: Ensure gopass lib folder exists
+  file:
+    path: "{{ gopass_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: true
 
-  - name: Ensure target folder exists
-    file:
-      path: "{{ gopass_path }}"
-      state: directory
-    become: true
+- name: Ensure summon lib folder exists
+  file:
+    path: "{{ summon_lib_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: true
 
-  - name: Extract archive
-    unarchive:
-      src: /tmp/gopass.tar.gz
-      dest: "{{ gopass_path }}"
-      remote_src: yes
-    become: true
+- name: Download gopass archive
+  get_url:
+    url: "{{ gopass_download_url }}"
+    dest: /tmp/gopass.tar.gz
+    mode: 0655
+    checksum: "{{ gopass_checksum }}"
+  changed_when: false
 
-  - name: Remove gopass archive
-    file:
-      path: /tmp/gopass.tar.gz
-      state: absent
+- name: Extract gopass archive
+  unarchive:
+    src: /tmp/gopass.tar.gz
+    dest: "{{ gopass_path }}"
+    creates: "{{ gopass_path }}/gopass"
+    owner: root
+    group: root
+    remote_src: yes
+  become: true
 
-  - name: Create gopass symlink
-    file:
-      src: "{{ gopass_path }}/gopass"
-      dest: "{{ gopass_bin }}"
-      owner: root
-      group: root
-      state: link
-    become: true
-  when: not __gopass_bin.stat.exists
+- name: Remove gopass archive
+  file:
+    path: /tmp/gopass.tar.gz
+    state: absent
+  changed_when: false
+
+- name: Download gopass summon archive
+  get_url:
+    url: "{{ gopass_summon_download_url }}"
+    dest: /tmp/gopass-summon.tar.gz
+    mode: 0655
+    checksum: "{{ gopass_summon_checksum }}"
+  changed_when: false
+
+- name: Extract gopass summon archive
+  unarchive:
+    src: /tmp/gopass-summon.tar.gz
+    dest: "{{ gopass_path }}"
+    owner: root
+    group: root
+    remote_src: yes
+  become: true
+
+- name: Remove gopass summon archive
+  file:
+    path: /tmp/gopass-summon.tar.gz
+    state: absent
+  changed_when: false
+
+- name: Create gopass symlink
+  file:
+    src: "{{ gopass_path }}/gopass"
+    dest: "{{ gopass_bin }}"
+    owner: root
+    group: root
+    state: link
+  become: true
+
+- name: Create summon provider symlink
+  file:
+    src: "{{ gopass_path }}/gopass-summon-provider"
+    dest: "{{ summon_lib_path }}/gopass-summon-provider"
+    owner: root
+    group: root
+    state: link
+  become: true
