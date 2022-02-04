@@ -5,7 +5,7 @@
     state: present
   become: true
 
-- name: Ensure gopass lib folder exists
+- name: Ensure gopass folder exists
   file:
     path: "{{ gopass_path }}"
     state: directory

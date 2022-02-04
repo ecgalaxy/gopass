@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include gopass"
+    - name: Include gopass
       include_role:
         name: "gopass"
   environment:
