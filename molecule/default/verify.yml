@@ -6,9 +6,9 @@
   gather_facts: false
   tasks:
   - name: Check gopass version
-    command: gopass --version
+    ansible.builtin.command: gopass --version
     register: output
   - name: Assert that gopass is installed
-    assert:
+    ansible.builtin.assert:
       that:
       - "'gopass {{ gopass_version }}' in output.stdout"

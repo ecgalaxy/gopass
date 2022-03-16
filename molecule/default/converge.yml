@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: Include gopass
-      include_role:
+      ansible.builtin.include_role:
         name: "gopass"
   environment:
     http_proxy: "{{ lookup('env', 'http_proxy') }}"

@@ -1,12 +1,12 @@
 ---
 - name: Install GnuPG
-  package:
+  ansible.builtin.package:
     name: gnupg2
     state: present
   become: true
 
 - name: Ensure gopass folder exists
-  file:
+  ansible.builtin.file:
     path: "{{ gopass_path }}"
     state: directory
     owner: root
@@ -15,7 +15,7 @@
   become: true
 
 - name: Ensure summon lib folder exists
-  file:
+  ansible.builtin.file:
     path: "{{ summon_lib_path }}"
     state: directory
     owner: root
@@ -24,7 +24,7 @@
   become: true
 
 - name: Download gopass archive
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ gopass_download_url }}"
     dest: /tmp/gopass.tar.gz
     mode: 0655
@@ -32,7 +32,7 @@
   changed_when: false
 
 - name: Extract gopass archive
-  unarchive:
+  ansible.builtin.unarchive:
     src: /tmp/gopass.tar.gz
     dest: "{{ gopass_path }}"
     creates: "{{ gopass_path }}/gopass"
@@ -42,13 +42,13 @@
   become: true
 
 - name: Remove gopass archive
-  file:
+  ansible.builtin.file:
     path: /tmp/gopass.tar.gz
     state: absent
   changed_when: false
 
 - name: Download gopass summon archive
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ gopass_summon_download_url }}"
     dest: /tmp/gopass-summon.tar.gz
     mode: 0655
@@ -56,7 +56,7 @@
   changed_when: false
 
 - name: Extract gopass summon archive
-  unarchive:
+  ansible.builtin.unarchive:
     src: /tmp/gopass-summon.tar.gz
     dest: "{{ gopass_path }}"
     owner: root
@@ -65,13 +65,13 @@
   become: true
 
 - name: Remove gopass summon archive
-  file:
+  ansible.builtin.file:
     path: /tmp/gopass-summon.tar.gz
     state: absent
   changed_when: false
 
 - name: Create gopass symlink
-  file:
+  ansible.builtin.file:
     src: "{{ gopass_path }}/gopass"
     dest: "{{ gopass_bin }}"
     owner: root
@@ -80,7 +80,7 @@
   become: true
 
 - name: Create summon provider symlink
-  file:
+  ansible.builtin.file:
     src: "{{ gopass_path }}/gopass-summon-provider"
     dest: "{{ summon_lib_path }}/gopass-summon-provider"
     owner: root
