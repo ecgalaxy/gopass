@@ -1,8 +1,8 @@
 ---
-gopass_version: 1.14.4
+gopass_version: 1.14.5
 gopass_summon_version: 1.14.3
 gopass_download_url: "https://github.com/gopasspw/gopass/releases/download/v{{ gopass_version }}/gopass-{{ gopass_version }}-linux-amd64.tar.gz"
-gopass_checksum: "sha256:247ba53bffc4525f54b8362688529010febcaaa5d9688940ad65b0c82a2aa0a1"
+gopass_checksum: "sha256:c95f1fa26dcf789ec8a724e8e2e7853d0c0fca6c06956c9f786ce410aa9a83ae"
 gopass_path: "/opt/gopass/{{ gopass_version }}"
 gopass_bin: "/usr/local/bin/gopass"
 gopass_summon_download_url: "https://github.com/gopasspw/gopass-summon-provider/releases/download/v{{ gopass_summon_version }}/gopass-summon-provider-{{ gopass_summon_version }}-linux-amd64.tar.gz"
