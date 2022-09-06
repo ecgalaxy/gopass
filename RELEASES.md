@@ -2,7 +2,7 @@
 
 ## 1.4.x
 
-- gopass 1.14.4
+- Upstream minor/patch gopass updates.
 
 ## 1.3.x
 
