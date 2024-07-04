@@ -11,7 +11,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: 'u=rwx,go=rx'
   become: true
 
 - name: Ensure summon lib folder exists
@@ -20,14 +20,14 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: 'u=rwx,go=rx'
   become: true
 
 - name: Download gopass archive
   ansible.builtin.get_url:
     url: "{{ gopass_download_url }}"
     dest: /tmp/gopass.tar.gz
-    mode: 0655
+    mode: 'u=rw,go=r'
     checksum: "{{ gopass_checksum }}"
   changed_when: false
 
@@ -38,7 +38,7 @@
     creates: "{{ gopass_path }}/gopass"
     owner: root
     group: root
-    remote_src: yes
+    remote_src: true
   become: true
 
 - name: Remove gopass archive
@@ -51,7 +51,7 @@
   ansible.builtin.get_url:
     url: "{{ gopass_summon_download_url }}"
     dest: /tmp/gopass-summon.tar.gz
-    mode: 0655
+    mode: 'u=rw,go=r'
     checksum: "{{ gopass_summon_checksum }}"
   changed_when: false
 
@@ -61,7 +61,7 @@
     dest: "{{ gopass_path }}"
     owner: root
     group: root
-    remote_src: yes
+    remote_src: true
   become: true
 
 - name: Remove gopass summon archive
