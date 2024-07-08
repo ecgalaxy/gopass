@@ -1,10 +1,10 @@
 ---
-gopass_version: 1.15.11
-gopass_summon_version: 1.15.11
+gopass_version: 1.15.13
+gopass_summon_version: 1.15.13
 gopass_download_url: "https://github.com/gopasspw/gopass/releases/download/v{{ gopass_version }}/gopass-{{ gopass_version }}-linux-amd64.tar.gz"
-gopass_checksum: "sha256:b965e7c719366ae26b77581cb87e4433e626a09a1dce53b2eb77ffe26a8ca5eb"
+gopass_checksum: "sha256:d512fbc44fde1dc1720380e5f43d31adb78f580689d74c89db4927595bfe7bf0"
 gopass_path: "/opt/gopass/{{ gopass_version }}"
 gopass_bin: "/usr/local/bin/gopass"
 gopass_summon_download_url: "https://github.com/gopasspw/gopass-summon-provider/releases/download/v{{ gopass_summon_version }}/gopass-summon-provider-{{ gopass_summon_version }}-linux-amd64.tar.gz" # noqa yaml[line-length]
-gopass_summon_checksum: "sha256:87afcd62e7e6341b1e17a824c15a10359439f1db3513ba039126b947b7f484d6"
+gopass_summon_checksum: "sha256:6e253988a280fb58aca4105f5745956da509abfae1c25781946ce5274ffc4fe3"
 summon_lib_path: "/usr/local/lib/summon"
