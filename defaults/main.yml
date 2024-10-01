@@ -6,5 +6,5 @@ gopass_checksum: "sha256:7aa98e70edaeb89d67b86062e0427513643a00356b88e33c726b868
 gopass_path: "/opt/gopass/{{ gopass_version }}"
 gopass_bin: "/usr/local/bin/gopass"
 gopass_summon_download_url: "https://github.com/gopasspw/gopass-summon-provider/releases/download/v{{ gopass_summon_version }}/gopass-summon-provider-{{ gopass_summon_version }}-linux-amd64.tar.gz" # noqa yaml[line-length]
-gopass_summon_checksum: "sha256:109f0989fddd2abd4ff673da06ce78ba8e6869b73d433257bb446b086c6139bc"
+gopass_summon_checksum: "sha256:98febda08bf8afdc3a7d190d64784fa93160aa4474de29e44e86674776461af2"
 summon_lib_path: "/usr/local/lib/summon"
